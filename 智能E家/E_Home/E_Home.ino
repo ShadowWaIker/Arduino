@@ -7,7 +7,7 @@
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
 byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xBF };
   //服务端IP地址
 IPAddress ip(192,168,1,178);
 // Initialize the Ethernet server library
@@ -26,15 +26,19 @@ SFE_BMP180 pressure;// 创建一个气压计对象
 
 void setup() {
  // Open serial communications and wait for port to open:
+  /*
   Serial.begin(9600);
    while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
+  */
   // start the Ethernet connection and the server:
   Ethernet.begin(mac, ip);
   server.begin();
+  /*
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
+  */
   //初始化BMP180传感器
   pressure.begin();
   //设置端口为输出
@@ -54,7 +58,9 @@ void loop() {
   EthernetClient client = server.available(); 
   if (client) {
     //向串口输出信息(新客户端上线)
+    /*
     Serial.println("new client");
+    */
     // an http request ends with a blank line
     boolean currentLineIsBlank = true;
     while (client.connected()) {
@@ -158,7 +164,7 @@ void loop() {
     // close the connection:
    client.stop();
    //向串口输出信息(客户端离线)
-   Serial.println("client disonnected");
+   //Serial.println("client disonnected");
   }
 }
 
